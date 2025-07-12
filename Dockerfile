@@ -1,5 +1,5 @@
 # Dockerfile für smartflowerpot.com Deployment
-FROM openjdk:21-jre-slim
+FROM eclipse-temurin:21-jre-jammy
 
 # Working directory
 WORKDIR /app
