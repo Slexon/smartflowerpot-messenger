@@ -1,5 +1,5 @@
 # Dockerfile für smartflowerpot.com Deployment
-FROM eclipse-temurin:21-jre-jammy
+FROM eclipse-temurin:21-jdk-jammy AS builder
 
 # Working directory
 WORKDIR /app
@@ -19,8 +19,14 @@ RUN chmod +x ./gradlew
 # Build the application
 RUN ./gradlew bootJar --no-daemon
 
-# Copy the built jar
-RUN cp build/libs/*.jar app.jar
+# Runtime stage
+FROM eclipse-temurin:21-jre-jammy
+
+# Working directory
+WORKDIR /app
+
+# Copy the built jar from builder stage
+COPY --from=builder /app/build/libs/*.jar app.jar
 
 # Expose port
 EXPOSE 8080
