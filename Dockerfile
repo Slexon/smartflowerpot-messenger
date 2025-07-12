@@ -13,11 +13,13 @@ COPY gradle.properties .
 # Copy source code
 COPY src src
 
-# Make gradlew executable
+# Make gradlew executable and set proper line endings
 RUN chmod +x ./gradlew
+RUN sed -i 's/\r$//' ./gradlew
 
-# Build the application
-RUN ./gradlew bootJar --no-daemon
+# Build the application with verbose output
+RUN ./gradlew --version
+RUN ./gradlew bootJar --no-daemon --info
 
 # Runtime stage
 FROM eclipse-temurin:21-jre-jammy
