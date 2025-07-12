@@ -1,17 +1,15 @@
-$schema: https://railway.app/railway.schema.json
-version: 2
+[build]
+builder = "DOCKERFILE"
 
-deploy:
-  startCommand: java -Dspring.profiles.active=prod -jar build/libs/*.jar
-  healthcheckPath: /actuator/health
-  healthcheckTimeout: 300
-  restartPolicyType: always
+[deploy]
+startCommand = "java -Dspring.profiles.active=prod -jar build/libs/*.jar"
+healthcheckPath = "/actuator/health"
+healthcheckTimeout = 300
+restartPolicyType = "always"
 
-environments:
-  production:
-    variables:
-      SPRING_PROFILES_ACTIVE: prod
-      GOOGLE_CLIENT_ID: YOUR_GOOGLE_CLIENT_ID_HERE
-      GOOGLE_CLIENT_SECRET: YOUR_GOOGLE_CLIENT_SECRET_HERE
-      JWT_SECRET: smartflowerpot_production_secret_2025
-      PORT: 8080
+[environments.production.variables]
+SPRING_PROFILES_ACTIVE = "prod"
+GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID_HERE"
+GOOGLE_CLIENT_SECRET = "YOUR_GOOGLE_CLIENT_SECRET_HERE"
+JWT_SECRET = "smartflowerpot_production_secret_2025"
+PORT = "8080"
